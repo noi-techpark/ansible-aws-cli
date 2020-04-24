@@ -1,0 +1,46 @@
+---
+- name: Install aptitude using apt
+  apt:
+    name: aptitude
+    state: latest
+    update_cache: yes
+    force_apt_get: yes
+
+- name: Update the server
+  apt:
+    upgrade: safe
+    update_cache: yes
+
+- name: Install required system packages
+  apt:
+    name: '{{ item }}'
+    state: latest
+  loop:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - software-properties-common
+    - python3-pip
+    - python-pip
+    - virtualenv
+    - python3-setuptools
+    - unzip
+
+- name: Uninstall AWS CLI V1
+  apt:
+    name: awscli
+    state: absent
+
+- name: Delete the old AWS CLI V2 temp files
+  file:
+    path: /tmp/aws
+    state: absent
+
+- name: Download and unzip the AWS CLI V2
+  unarchive:
+    src: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+    dest: /tmp
+    remote_src: yes
+
+- name: Run the AWS CLI V2 installer
+  shell: "/tmp/aws/install --update"
