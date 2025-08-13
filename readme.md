@@ -1,3 +1,4 @@
+[![REUSE Compliance](https://github.com/noi-techpark/ansible-aws-cli/actions/workflows/REUSE%20Compliance%20Check/badge.svg)](https://github.com/noi-techpark/opendatahub-docs/wiki/REUSE#badges)
 Ansible AWS CLI Role
 ====================
 
